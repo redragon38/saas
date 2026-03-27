@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+  <h1>{{ invoice.title }}</h1>
+  <p>Client: {{ invoice.client.name }}</p>
+  <p>Montant: <strong>{{ '%.2f'|format(invoice.amount) }} €</strong></p>
+  <p>Échéance: {{ invoice.due_date }}</p>
+  <p>Statut: <strong>{{ invoice.status }}</strong></p>
+  {% if invoice.status != 'paid' %}
+  <form method="post">
+    <button>Payer maintenant (simulation)</button>
+  </form>
+  {% endif %}
+</div>
+{% endblock %}
