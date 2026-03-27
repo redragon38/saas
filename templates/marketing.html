@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+  <h1>Le SaaS prêt à vendre pour freelances et petites agences</h1>
+  <p>PulseFacture centralise clients, MRR, factures et paiements en moins de 5 minutes.</p>
+  <div class="cta">
+    <a class="btn" href="{{ url_for('register') }}">Lancer mon SaaS</a>
+    <a class="btn ghost" href="{{ url_for('login') }}">J'ai déjà un compte</a>
+  </div>
+</section>
+<section class="grid3">
+  <article><h3>1. CRM léger</h3><p>Ajoute tes clients et leur valeur mensuelle.</p></article>
+  <article><h3>2. Facturation</h3><p>Crée des factures avec lien de paiement public.</p></article>
+  <article><h3>3. KPI business</h3><p>MRR, revenus en attente et encaissements 30 jours.</p></article>
+</section>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Créer un compte</h1>
+<form method="post" class="card form">
+  <label>Email<input type="email" name="email" required></label>
+  <label>Nom de société<input type="text" name="company_name" required></label>
+  <label>Mot de passe<input type="password" name="password" minlength="6" required></label>
+  <button type="submit">Créer mon espace</button>
+</form>
+{% endblock %}

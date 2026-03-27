@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Connexion</h1>
+<form method="post" class="card form">
+  <label>Email<input type="email" name="email" required></label>
+  <label>Mot de passe<input type="password" name="password" required></label>
+  <button type="submit">Se connecter</button>
+</form>
+{% endblock %}
