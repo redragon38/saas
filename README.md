@@ -33,7 +33,7 @@ Voir `.env.example`.
 - `app/(marketing)`: landing, pricing, docs, legal
 - `app/dashboard`: espace privé utilisateur
 - `app/api/v1/*`: endpoints API SEO
-- `lib/services/*`: logique métier (clé API, quota, usage, génération)
+- `lib/services/*`: logique métier (clé API, quota, usage, génération, rate limit)
 - `prisma/schema.prisma`: modèle SaaS/API complet
 
 ## Endpoints API
@@ -43,6 +43,13 @@ Voir `.env.example`.
 - `POST /api/v1/summarize-content`
 
 Tous exigent: `Authorization: Bearer seopk_xxx`.
+
+## Sécurité & usage
+- API keys stockées hashées (SHA-256)
+- Rotation de clé API avec affichage one-time de la nouvelle clé
+- Quota mensuel par plan
+- Rate limit technique de base: 120 requêtes/minute par clé
+- Logs d'usage (endpoint, code HTTP, durée, erreur)
 
 ## Déploiement
 Optimisé pour Vercel + PostgreSQL managé (Neon/Supabase/RDS). Exécuter migrations Prisma dans pipeline CI/CD.

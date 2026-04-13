@@ -1,5 +1,6 @@
 import { getRequiredSession } from "@/lib/auth/session";
 import { db } from "@/lib/db";
+import { ApiKeyManager } from "@/components/dashboard/api-key-manager";
 
 export default async function DashboardApiPage() {
   const session = await getRequiredSession();
@@ -8,8 +9,7 @@ export default async function DashboardApiPage() {
   return (
     <div className="space-y-4">
       <h1 className="text-3xl font-semibold">API Key</h1>
-      <p className="rounded border bg-white p-4">Clé active: {apiKey?.keyPrefix ?? "Aucune"}******</p>
-      <form action="/api/dashboard/api-keys/regenerate" method="post"><button className="rounded bg-brand px-3 py-2 text-white">Régénérer la clé</button></form>
+      <ApiKeyManager maskedPrefix={apiKey?.keyPrefix ?? "Aucune"} />
     </div>
   );
 }
