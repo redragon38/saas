@@ -47,7 +47,8 @@ Tous exigent: `Authorization: Bearer seopk_xxx`.
 ## Sécurité & usage
 - API keys stockées hashées (SHA-256)
 - Rotation de clé API avec affichage one-time de la nouvelle clé
-- Quota mensuel par plan
+- Quota mensuel par plan (incrément atomique sous concurrence)
+- Les plans payants ne sont appliqués que si l'abonnement est ACTIVE/TRIALING (sinon fallback FREE)
 - Rate limit technique de base: 120 requêtes/minute par clé
 - Logs d'usage (endpoint, code HTTP, durée, erreur)
 

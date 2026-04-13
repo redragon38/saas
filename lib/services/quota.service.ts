@@ -13,19 +13,27 @@ export async function checkAndConsumeQuota(userId: string, plan: Plan) {
     update: { quotaLimit }
   });
 
-  if (usage.requestCount >= usage.quotaLimit) {
-    return { allowed: false as const, remaining: 0, used: usage.requestCount, limit: usage.quotaLimit };
-  }
-
-  const updated = await db.monthlyUsage.update({
-    where: { id: usage.id },
+  const updateResult = await db.monthlyUsage.updateMany({
+    where: {
+      id: usage.id,
+      requestCount: { lt: usage.quotaLimit }
+    },
     data: { requestCount: { increment: 1 } }
   });
 
+  const refreshed = await db.monthlyUsage.findUnique({ where: { id: usage.id } });
+  if (!refreshed) {
+    return { allowed: false as const, remaining: 0, used: usage.requestCount, limit: usage.quotaLimit };
+  }
+
+  if (updateResult.count === 0) {
+    return { allowed: false as const, remaining: 0, used: refreshed.requestCount, limit: refreshed.quotaLimit };
+  }
+
   return {
     allowed: true as const,
-    remaining: Math.max(updated.quotaLimit - updated.requestCount, 0),
-    used: updated.requestCount,
-    limit: updated.quotaLimit
+    remaining: Math.max(refreshed.quotaLimit - refreshed.requestCount, 0),
+    used: refreshed.requestCount,
+    limit: refreshed.quotaLimit
   };
 }
