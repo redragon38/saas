@@ -1,0 +1,17 @@
+"use client";
+import { useState } from "react";
+
+export function SignupForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
+  return (
+    <form className="space-y-3" onSubmit={async (e) => { e.preventDefault(); await fetch("/api/register", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password, name }) }); window.location.href = "/login"; }}>
+      <input className="w-full rounded border px-3 py-2" placeholder="Nom" value={name} onChange={(e) => setName(e.target.value)} />
+      <input className="w-full rounded border px-3 py-2" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input className="w-full rounded border px-3 py-2" placeholder="Mot de passe" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <button className="w-full rounded bg-brand px-3 py-2 text-white">Créer mon compte</button>
+    </form>
+  );
+}
